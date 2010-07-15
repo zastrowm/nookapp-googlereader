@@ -1,0 +1,21 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+The User Interface for the nook will eventually need to handle a lot of user interaction, all in the tiny touch screen space.  The following are all the commands that will eventually need to be integrated into the touch-view.
+
+= UI =
+
+== Core View ==
+The parallels between feed & article view.
+
+|| *Feed View* || *Article View*||
+||Next Item||Next Article||
+||Prev Item||Prev Article||
+||Keep Unread||Read Later||
+||Go Offline||Save Offline||
+||?||Readability||
+||Preload||Reload||
+||Options||Options||
+||Goto Articles||Goto Feeds||
+||Mouse Mode||Mouse Mode||
