@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary User Interface Designs
 
 = Introduction =
 
@@ -29,6 +29,7 @@ The parallels between feed & article view, all of which need to be on the main v
    * Choose Feeds
    * Button Configuration
    * Configure Offline
+   * Themes
   * Articles
    * Domain Scripts
    * Button Configuration
