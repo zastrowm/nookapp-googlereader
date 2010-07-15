@@ -1,2 +1,2 @@
-  *[WikiIntroduction Intro]
-  *[WikiFeatures Features]
+  * [WikiIntroduction]
+  * [WikiFeatures]
