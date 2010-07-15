@@ -1,5 +1,4 @@
 #summary Introduction into the GoogleReader nookapp
-#labels Featured
 
 = Introduction =
 
