@@ -1,18 +1,18 @@
-#summary The various features and feature-time line of the project
+#summary The feature timeline and descriptions of the features of the project
 #labels Phase-Design,Featured
 =Feature Timeline =
 The following timeline is tentative and may change at any time.  Time to implement only represents the time to develop the feature, not the time to test.  Ordinarily, it will be the time that it takes for the feature to enter Alpha builds.
 
 || *Feature* || *Version* || *Time to Implement *||
-||Basic Viewer || 1.0 || 3 week||
-||Selective Reader||1.1||1 week||
-||Article View||1.1||1 week||
-||Interface Redone||1.1||1 week||
-||Domain Scripts||1.2||2 weeks||
-||User Switch||1.3||3+ weeks||
-||Offline Mode||2.0||3 weeks||
-||Headline Mode||2.0||1 week||
-||Themes/Interface Redone||2.0||1 week||
+|| [Features#Basic Basic Viewer] || 1.0 || 3 week||
+|| [Features#Selective Selective Reader]||1.1||1 week||
+|| [Features#Article Article View]||1.1||1 week||
+|| [Features#Interface Interface Redone]||1.1||1 week||
+|| [Features#Domain Domain Scripts]||1.2||2 weeks||
+|| [Features#User User Switch]||1.3||3+ weeks||
+|| [Features#Offline Offline Mode]||2.0||3 weeks||
+|| [Features#Headline Headline Mode]||2.0||1 week||
+|| [Features#Theming Themes/Interface Redone]||2.0||1 week||
 
 = Features Descriptions  =
 The following is a list of features along with descriptions.  They are in no specific order.  For a tentative order, see [Features#Timeline Timeline]
