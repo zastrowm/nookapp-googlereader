@@ -1,5 +1,5 @@
 #summary The various features and feature-time line of the project
-#labels Phase-Design
+#labels Phase-Design,Featured
 
 = Features =
 
