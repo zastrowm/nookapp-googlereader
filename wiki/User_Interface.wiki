@@ -15,6 +15,8 @@ The parallels between feed & article view, all of which need to be on the main v
 ||Keep Unread||Read Later||
 ||Go Offline||Save Offline||
 ||?||Readability||
+||Star||?||
+||Add Label||?||
 ||Preload||Reload||
 ||Options||Options||
 ||Goto Articles||Goto Feeds||
