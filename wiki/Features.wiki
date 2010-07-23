@@ -4,15 +4,16 @@
 The following timeline is tentative and may change at any time.  Time to implement only represents the time to develop the feature, not the time to test.  Ordinarily, it will be the time that it takes for the feature to enter Alpha builds.
 
 || *Feature* || *Version* || *Time to Implement *||
-|| [Features#Basic_Viewer Basic Viewer] || 1.0 || 3 week||
-|| [Features#Selective_Reader Selective Reader]||1.1||1 week||
-|| [Features#Article_View Article View]||1.1||1 week||
-|| [Features#Interface_Redone Interface Redone]||1.1||1 week||
+|| [Features#Basic_Viewer Basic Viewer] || 1.0 || 3 weeks||
+|| Code Maintenance/Clean Up||1.1||2 weeks||
+|| [Features#Selective_Reader Selective Reader]||1.1||2 weeks||
+|| [Features#Article_View Article View]||1.1||3 weeks||
+|| [Features#Interface_Redone Interface Redone]||1.1||1 weeks||
 || [Features#Domain_Scripts Domain Scripts]||1.2||2 weeks||
-|| [Features#User_Switch User Switch]||1.3||3+ weeks||
-|| [Features#Offline_Mode Offline Mode]||2.0||3 weeks||
-|| [Features#Headline_Mode Headline Mode]||2.0||1 week||
-|| [Features#Theming Themes/Interface Redone]||2.0||1 week||
+|| [Features#User_Switch User Switch]||1.3||4+ weeks||
+|| [Features#Offline_Mode Offline Mode]||2.0||4 weeks||
+|| [Features#Headline_Mode Headline Mode]||2.0||2 weeks||
+|| [Features#Theming Themes/Interface Redone]||2.0||3 weeks||
 
 = Features Descriptions  =
 The following is a list of features along with descriptions.  They are in no specific order.  For a tentative order, see [Features#Timeline Timeline]
