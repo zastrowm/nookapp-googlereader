@@ -1,0 +1,10 @@
+#summary Frequently Asked Questions
+
+  * How do I login?
+   * There currently is no "login" box because this is a setting to be stored with a user account and user accounts are not going to be implemented until version 1.3.  The program does need to know your google username and password however.  To inform the program of your user/pass combo, place a file called '.reader-settings.nagr' in your "My Documents" directory on the nook's sd card.  In the file, the first line should be your username, and the second line should be your password.  If you do not have this file, the program won't even start.
+  * Your design sucks, can't you make it better?
+   * I plan on redoing the interface in version 1.1 & 2.0, but I'm no graphic designer.  If you think you can make it look better or put things more efficiently, please send me your designs!  Its just plain html, but if your just a designer and not a programmer, send me your vision and I'll see what I can do.
+  * Can't you release faster?
+   * I currently am a student, a boyfriend, and have a couple other projects I'm working on concurrently.  I code when I can and try to get releases out according to schedule.  If you really can't wait for a feature, you can always request beta versions or even alpha versions if you're really desperate.
+
+ 
