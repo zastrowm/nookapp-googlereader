@@ -48,7 +48,6 @@ var readee = {
 				break;	
 			//the feed has been changed	
 			case "itemSwitched":
-				info.noMore = false;
 				if (moreInfo)	methods.nextItem();
 					else		methods.prevItem();
 								
@@ -87,10 +86,9 @@ var methods = {
 	 * Next item has been clicked
 	 */
 	nextItem : function(){
-		
-
-		
-		if (currentPoint.next != backPoint && !info.init){
+		if (info.earlyEnd){
+			loadDiv('end');
+		} else 	if (currentPoint.next != backPoint){
 			currentPoint = currentPoint.next;
 			
 			methods.setItemNumber(currentPoint.numId);
@@ -101,13 +99,15 @@ var methods = {
 				frontPoint = frontPoint.next;
 				info.distanceFromCurFront--;
 			}
-						
-			
-		} else if (/*equal and*/ !info.noMore || info.init){
+		} else if (info.init){	//they're equal, but we're initializing
 			loadDiv('loading');
 			info.userWaiting = true;
 			window.reader.setInfo(null,null);
-		} else {	//We have no more and we're at the end
+		} else if (!info.noMore){	//they're equal, not init, and we have more	
+			loadDiv('loading');
+			info.userWaiting = true;
+			window.reader.setInfo(null,null);
+		} else {	//We have no more and we're at the end.  We're screwed
 			loadDiv('end');
 			window.reader.setInfo(null,null);
 		}
@@ -119,17 +119,23 @@ var methods = {
 	 */
 	prevItem : function(){
 		if (currentPoint != frontPoint) {
-			currentPoint = currentPoint.prev;
-			methods.setItemNumber(currentPoint.numId);
-			info.distanceFromCurFront--;
-			info.userWaiting = false;
+			if (info.earlyEnd)
+				return;
+			if (info.currentDivId == 'loading' || info.currentDivId == 'end'){
+				methods.setItemNumber(currentPoint.numId);
+				info.userWaiting = false;
+			} else {
+				currentPoint = currentPoint.prev;
+				methods.setItemNumber(currentPoint.numId);
+				info.distanceFromCurFront--;
+				info.userWaiting = false;
+			}			
 		}
-		
-	
 	},
 	
 	/**
 	 * The next items have been downloaded
+	 * TODO: test functionality with 0 items (after loading 15).
 	 */
 	nextFeedDownloaded : function(){
 		var it = window.reader.retrieveItems();
@@ -138,24 +144,36 @@ var methods = {
 		info.waitingMore = false;
 		log("dl" + it.toString().length());
 		
+		//todo: what if we're at loading div, and now we have no more items?
 		if (newData.items.length < 15) {
 			info.noMore = true;
-			if (newData.items.length == 0){
+			if (newData.items.length == 0 && !info.init){
 				info.nextLoaded = false;
 				return;
 			}	
 		}
 		
 		if (info.init) {
-			data[0] = newData;
-			info.init = false;
-						
-			info.scriptWaiting = false;
-			info.userWaiting = false;
-			methods.pushBackward();		
-			methods.setItemNumber(0);
+			if (newData.items.length > 0){
+				data[0] = newData;
+				info.init = false;
+							
+				info.scriptWaiting = false;
+				info.userWaiting = false;
+				methods.pushBackward();		
+				methods.setItemNumber(0);
+				
+				//not sure why we need this at the moment, but we do.
+				document.getElementById('loading').style.display = 'none';
+			} else {
+				info.noMore = true;
+				info.nextLoaded = false;
+				methods.stopTimer();
+				loadDiv('end');
+				document.getElementById('loading').style.display = 'none';
+				info.earlyEnd = true;
+			}
 			
-			document.getElementById('loading').style.display = 'none';
 		} else {
 			var nextIndex = (info.curMajorIndex + 1) % 2;
 			data[nextIndex] = newData;
@@ -167,16 +185,15 @@ var methods = {
 				info.userWaiting = false;
 				methods.pushBackward();
 				methods.nextItem();
-			}		
+			}
+			
 		}
 	},
 	
 	
 	pushBackward : function(){
 		
-		if (info.scriptWaiting)	return;
-		
-		
+		if (info.scriptWaiting)	return;		
 		
 		var id = backPoint.numId;
 		
@@ -209,7 +226,6 @@ var methods = {
 			extra += "\n" + i;
 		*/
 		
-		//TODO: content vs summary
 		
 		if (nextItem.summary)
 			document.getElementById("content" + id).innerHTML	= nextItem.summary.content // + "<pre>" + extra + "</pre>";
@@ -225,7 +241,7 @@ var methods = {
 		
 		backPoint = backPoint.next;
 		
-		if (methods.computeNumberLeft() < 3){
+		if (methods.computeNumberLeft() < 3 && !info.noMore){
 			methods.requestMore();
 			info.nextLoaded = false;
 		}
@@ -243,7 +259,12 @@ var methods = {
 	},
 	
 	startTimer : function(){
-		setInterval(methods.onTimerForPushing,1000);
+		info.timer = setInterval(methods.onTimerForPushing,1000);
+	},
+	
+	stopTimer : function(){
+		if (info.timer)
+			clearInterval(info.timer);
 	},
 	
 	onTimerForPushing : function(){
@@ -253,7 +274,7 @@ var methods = {
 	},
 	
 	requestMore : function(){
-		if (!info.waitingMore){
+		if (!info.waitingMore && !info.noMore){
 			window.reader.requestMoreItems(data[info.curMajorIndex].continuation);
 			info.waitingMore = true;
 			log('requestedMore');
@@ -279,7 +300,8 @@ var methods = {
 		var num = Number(element.style.top.substring(0,element.style.top.length - 2));
 		if (num + element.offsetHeight > 680)
 			element.style.top = (num  - 680) + "px";
-	},
+	}
+	
 	
 }
 
@@ -309,5 +331,7 @@ var info = {
 	curMinorIndex : -1,
 	nextLoaded : false,
 	init : true,
-	waitingMore : false
+	waitingMore : false,
+	timer : null,
+	earlyEnd : false
 }

@@ -46,8 +46,8 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier {
 			setContentView(R.layout.main);
 			this.setUpWebViews();		
 			
-			this.nookHelper = new NookHelper(this);	
-			nookHelper.setTitle("nook G-Reader");        
+			this.nookHelper = new NookHelper(this,"gReader");	
+			nookHelper.setTitle("gReader");        
 			nookHelper.resetTimeout();
 			nookHelper.lockWifi(this);
 
@@ -177,6 +177,8 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier {
 	
 	public void stop(){
 		nookHelper.unlockWifi();
+		nookHelper.unlockScreenSaver();
+		reader.stopThreads();
 		this.finish();
 	}
 	
