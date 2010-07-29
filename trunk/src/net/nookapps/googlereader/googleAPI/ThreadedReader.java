@@ -49,8 +49,12 @@ public class ThreadedReader extends AbstractReader {
 
 					try {Thread.sleep(1000);} catch (InterruptedException e) {}
 					
-					if (stopAllThreads)
+					if (stopAllThreads){
+						while (!labeled.isEmpty())
+							labeled.poll().run();
 						break;
+					}
+						
 				}
 			}			
 		});
@@ -58,8 +62,14 @@ public class ThreadedReader extends AbstractReader {
 		this.requestThread.start();
 	}
 	
-	private void stopThreads(){
+	public void stopThreads(){
 		this.stopAllThreads = true;
+		try {
+			requestThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void finalize(){

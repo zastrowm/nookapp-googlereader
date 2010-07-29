@@ -33,9 +33,13 @@ public class NookHelper {
 	private final static int defaultSSTimeout = 300000;
 	
 	private long ssTimeout;
-	
+	private String name;
 	
 	public NookHelper(Context theContext){
+		this(theContext,Integer.toString(theContext.hashCode()));
+	}
+	
+	public NookHelper(Context theContext,String theName){
 		this.context = theContext;
 		
 		this.wakeLock = ((PowerManager)context.getSystemService(Context.POWER_SERVICE))
@@ -43,6 +47,7 @@ public class NookHelper {
 		wakeLock.setReferenceCounted(false);
 		
 		this.ssTimeout = defaultSSTimeout;
+		this.name = theName;
 	}
 	
 	public void setTitle(String title){
@@ -62,13 +67,13 @@ public class NookHelper {
 	
 	private WifiManager getWifiManager(){
 		return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
-		
 	}
 	
 	public void lockWifi(WifiNotifier notfiee){	
 		
 		ConnectivityManager cmgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		wifiLock = cmgr.newWakeLock(1, "net.nookapps" + context.hashCode());
+		wifiLock = cmgr.newWakeLock(1, "net.nookapps.NookHelper-" + this.name);
+		wifiLock.setReferenceCounted(false);
 		wifiLock.acquire();		
 		
 		new WifiTask(notfiee).execute();			
@@ -116,5 +121,15 @@ public class NookHelper {
 		protected void onPostExecute(Boolean result) {
 			notifee.onWifiEnabled();
 		}
+	}
+
+
+
+	/**
+	 * 
+	 */
+	public void unlockScreenSaver() {
+		this.wakeLock.release();
+		
 	}
 }
