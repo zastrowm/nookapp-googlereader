@@ -87,7 +87,7 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 		@SuppressWarnings("unused")
 		public String retrieveItems(){
 			
-			return nookGoogleReader.this.currentFeed;
+			return currentFeed;
 		}
 		
 		@SuppressWarnings("unused")
