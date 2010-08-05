@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Google Reader Items</title>
+		<style type="text/css">
+			
+			body,html{
+				margin:0px;
+				padding:0px;
+			}
+			
+			body > div{
+				height:750px;
+				width:600px;
+				position:relative;
+				overflow:hidden;
+			}
+			body > div > div {
+				display:none;
+				position:absolute;
+				left:20px;
+				top:20px;
+				width:560px;
+				overflow:hidden;			
+			}/**/
+			
+			body > div > div div{
+				
+			}
+			
+			#log{display:none;}/**/
+
+		</style>
+		<script type="text/javascript" src="feed.js"></script>
+		</head>
+	<body onload="createList();">		
+		<p id='log'></p>
+		<div id='eink'>
+			<div id='item0'><h1 id='title0'></h1><h2 id='author0'></h2><div id='content0'></div></div>
+			<div id='item1'><h1 id='title1'></h1><h2 id='author1'></h2><div id='content1'></div></div>
+			<div id='item2'><h1 id='title2'></h1><h2 id='author2'></h2><div id='content2'></div></div>
+			<div id='item3'><h1 id='title3'></h1><h2 id='author3'></h2><div id='content3'></div></div>
+			<div id='item4'><h1 id='title4'></h1><h2 id='author4'></h2><div id='content4'></div></div>
+			<div id='item5'><h1 id='title5'></h1><h2 id='author5'></h2><div id='content5'></div></div>
+			<div id='item6'><h1 id='title6'></h1><h2 id='author6'></h2><div id='content6'></div></div>
+			<div id='item7'><h1 id='title7'></h1><h2 id='author7'></h2><div id='content7'></div></div>
+			<div id='item8'><h1 id='title8'></h1><h2 id='author8'></h2><div id='content8'></div></div>
+			<div id='item9'><h1 id='title9'></h1><h2 id='author9'></h2><div id='content9'></div></div>
+			<div id='item10'><h1 id='title10'></h1><h2 id='author10'></h2><div id='content10'></div></div>
+			<div id='item11'><h1 id='title11'></h1><h2 id='author11'></h2><div id='content11'></div></div>
+			<div id='item12'><h1 id='title12'></h1><h2 id='author12'></h2><div id='content12'></div></div>
+			<div id='item13'><h1 id='title13'></h1><h2 id='author13'></h2><div id='content13'></div></div>
+			<div id='item14'><h1 id='title14'></h1><h2 id='author14'></h2><div id='content14'></div></div>
+			<div id='item15'><h1 id='title15'></h1><h2 id='author15'></h2><div id='content15'></div></div>
+			<div id='loading' style='display:block'>
+				<h3>Loading</h3>
+				<p>Please wait while the nook loads your items.</p>
+				<p>If this is the first time you're seeing this message after starting up, that means the app
+					is starting wifi, logging in, downloading items, and setting everything up.  Generally, this takes about
+					30 - 60 seconds</p>
+				<p>If you're seeing this after the first time, that means that the app couldn't load enough items
+					fast enough for your viewing.  Either you're loading a lot of items in a small amount of time
+					or you have a slow internet connection.</p>
+				<h3>Nook gReader Information</h3>
+				<p>You are currently using gReader 1.0b5 : this is a beta version of the product and as such,
+					I need your help finding bugs!  If you find a bug, please report it at
+					http://code.google.com/p/nookapp-googlereader/issues/list</p>
+				<h3>Errors</h3>
+				<p>If you receive an exception while logging in, that means you have an invalid username or password.
+					Please correct your username & password in the '.settings/reader.settings' file and
+					restart the app.</p>
+				<p>If you see any other exception at any time, please report it as a bug at
+					http://code.google.com/p/nookapp-googlereader/issues/list</p>
+				
+			</div>
+			<div id='end'>There Are No More Unread Items/Feeds Tagged With Nook</div>
+		</div>
+		
+	</body>
+</html>

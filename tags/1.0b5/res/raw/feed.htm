@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Google Reader Items</title>
+		<style type="text/css">
+			body > div {display:none}		
+		</style>
+		<script type="text/javascript">
+
+var frontPoint, backPoint, currentPoint;
+
+
+/**
+ * Create a new LinkedList of DivId Elements
+ */
+function createList(){
+	//The DivId element
+	function LinkedListNode(prev,numId){
+		this.prev = prev;
+		this.numId = numId;
+	}
+	//make the front node/element
+	currentPoint = new LinkedListNode(null,0);
+	var prev = currentPoint, cur;
+	for (var i = 1; i < 16; i++){	//make a list of nodes, each node.prev = the last node
+		cur = new LinkedListNode(prev,i);
+		prev.next = cur;	//and the last node's next node is the current node
+		prev = cur;			//and do it again with the current node
+	}
+	prev.next = currentPoint;		//make sure the last points to the front
+	currentPoint.prev = prev;		//and that the front's prev points to end
+	frontPoint = backPoint = currentPoint;	//and they're all equal right about now
+}
+/**
+ * Object with methods called by java
+ */
+var readee = {
+	/**
+	 * A new feed has been downloaded
+	 */
+	onNextItemsDownloaded : function(){
+		
+	},
+	
+	/**
+	 * Next item has been clicked
+	 */
+	onNextItem : function(){
+		if (currentPoint != backPoint){
+			currentPoint = currentPoint.next;
+			loadDiv('item'+currentPoint.numId);
+			pushBackward();
+		} else if (/*equal and*/ !info.noMore){
+			loadDiv('loading');
+			info.waiting = true;
+		} else {	//We have no more and we're at the end
+			loadDiv('end');
+		}
+	},
+	
+	/**
+	 * Previous item has been clicked
+	 */
+	onPrevItem : function(){
+		if (currentPoint != frontPoint) {
+			currentPoint = currentPoint.prev;
+			loadDiv('item'+currentPoint.numId);
+		}
+	},
+	
+	/**
+	 * There are no more items to be downloaded, so stop asking
+	 */
+	onNoMoreItems : function(){
+		
+	},
+	
+	/**
+	 * The feed has been switching to stomething else
+	 */
+	onFeedSwitched : function(){
+		
+	}
+}
+/**
+ * Show one div, and hide the currently shown div
+ * @param {String} divId the id of the div to show
+ */
+function loadDiv(divId){
+	document.getElementById(info.currentDivId).style.display = 'none';
+	info.currentDivId = divId;
+	document.getElementById(divId).style.display = 'block';
+}
+
+var info = {
+	noMore : false,
+	waiting : false,
+	currentDivId : "loading"
+}
+
+		</script>
+		</head>
+	<body onload="createList(); window.location.href = 'reader://doneLoading'">
+		<div id='item0'><h1 id='title0'></h1><h2 id='author0'></h2><div id='content0'></div></div>
+		<div id='item1'><h1 id='title1'></h1><h2 id='author1'></h2><div id='content1'></div></div>
+		<div id='item2'><h1 id='title2'></h1><h2 id='author2'></h2><div id='content2'></div></div>
+		<div id='item3'><h1 id='title3'></h1><h2 id='author3'></h2><div id='content3'></div></div>
+		<div id='item4'><h1 id='title4'></h1><h2 id='author4'></h2><div id='content4'></div></div>
+		<div id='item5'><h1 id='title5'></h1><h2 id='author5'></h2><div id='content5'></div></div>
+		<div id='item6'><h1 id='title6'></h1><h2 id='author6'></h2><div id='content6'></div></div>
+		<div id='item7'><h1 id='title7'></h1><h2 id='author7'></h2><div id='content7'></div></div>
+		<div id='item8'><h1 id='title8'></h1><h2 id='author8'></h2><div id='content8'></div></div>
+		<div id='item9'><h1 id='title9'></h1><h2 id='author9'></h2><div id='content9'></div></div>
+		<div id='item10'><h1 id='title10'></h1><h2 id='author10'></h2><div id='content10'></div></div>
+		<div id='item11'><h1 id='title11'></h1><h2 id='author11'></h2><div id='content11'></div></div>
+		<div id='item12'><h1 id='title12'></h1><h2 id='author12'></h2><div id='content12'></div></div>
+		<div id='item13'><h1 id='title13'></h1><h2 id='author13'></h2><div id='content13'></div></div>
+		<div id='item14'><h1 id='title14'></h1><h2 id='author14'></h2><div id='content14'></div></div>
+		<div id='item15'><h1 id='title15'></h1><h2 id='author15'></h2><div id='content15'></div></div>
+		<div id='loading'></div>
+		<div id='end'></div>
+	</body>
+</html>
