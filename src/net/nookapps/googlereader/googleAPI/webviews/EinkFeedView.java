@@ -11,6 +11,8 @@ import android.view.View;
 import android.webkit.WebView;
 import net.nookapps.ExtendedWebView;
 import net.nookapps.NookHelper;
+import net.nookapps.googlereader.ManagedThreadedReader;
+import net.nookapps.googlereader.NookGoogleReader;
 
 
 
@@ -20,12 +22,17 @@ import net.nookapps.NookHelper;
  */
 public class EinkFeedView extends ExtendedWebView {
 
+	private NookGoogleReader app;
+	private String currentFeed;
+	private ManagedThreadedReader reader;
+
 	/**
 	 * @param it the WebView that represents the WinkFeed
 	 */
-	public EinkFeedView(WebView it) {
+	public EinkFeedView(NookGoogleReader theApp,WebView it) {
 		super(it);
 		
+		this.app = theApp;		
 		web.getSettings().setJavaScriptEnabled(true);
 		web.loadUrl("file:///android_asset/feed.htm");
 
@@ -73,6 +80,38 @@ public class EinkFeedView extends ExtendedWebView {
         }
 		
 		return false;
+	}
+	
+	public void onFeedDownloaded(String feed, boolean changed){
+		this.currentFeed = feed;
+		this.tryJavascript("readee.onEvent('feedDownloaded'" + changed +");");
+	}
+	
+	private class JavascriptReaderObject{
+		@SuppressWarnings("unused")
+		public String retrieveItems(){
+			
+			return currentFeed;
+		}
+		
+		@SuppressWarnings("unused")
+		public void setInfo(String itemOwner,String itemId,boolean markedUnread,boolean isSaved){
+			reader.setInfo(itemOwner, itemId, markedUnread, isSaved, "");
+		}
+
+		@SuppressWarnings("unused")
+		public void requestMoreItems(String continueString){
+			reader.getFeedBasedOnLabel("nook", continueString);
+			feedView.tryJavascript("log('c:"+ continueString + "')");
+		}
+	}
+	
+	/**
+	 * @param managedReader
+	 */
+	public void setManagedReader(ManagedThreadedReader managedReader) {
+		this.reader = managedReader;
+		
 	}
 	
 	
