@@ -12,18 +12,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
-public class nookGoogleReader extends Activity
+public class NookGoogleReader extends Activity
 implements AbstractReaderMethodHelper, WifiNotifier {
 
 
 	volatile String currentFeed;
 	WebView touch,eink;
-	ThreadedReader reader;
+	public ThreadedReader reader;
 	
-	private String theOwner, theItemId;
-	private boolean itemIsRead, itemIsSaved;
 	private NookHelper nookHelper;
 	String user, pass;
 	private boolean shouldLeave;
@@ -32,6 +29,8 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 	
 	private EinkFeedView feedView;
 	private TouchView touchView;
+	private ManagedThreadedReader managedReader;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,8 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.main);
 			
-			this.feedView = new EinkFeedView((WebView) findViewById(R.id.einkview));
-			this.touchView = new TouchView((WebView) findViewById(R.id.touchview),feedView);
+			this.feedView = new EinkFeedView(this,(WebView) findViewById(R.id.einkview));
+			this.touchView = new TouchView(this,(WebView) findViewById(R.id.touchview),feedView);
 			this.nookHelper = new NookHelper(this,"gReader");
 			
 			nookHelper.setTitle("gReader");        
@@ -50,7 +49,6 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 			nookHelper.lockWifi(this);
 			
 			feedView.getWebView().addJavascriptInterface(new Reader(), "reader");
-			touchView.getWebView().setWebViewClient(new TouchViewListerner());	
 		
 			try {
 				Scanner input;
@@ -125,40 +123,6 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 		reader.stopThreads();
 		this.finish();
 	}
-	
-	private class TouchViewListerner extends WebViewClient{
-		@Override
-		public boolean shouldOverrideUrlLoading(WebView view, String url){
-			if (url.substring(0, 9).equals("reader://")){
-				url = url.substring(9);
-				
-				if (url.equals("scrollUp"))
-					feedView.scrollItem(true);
-				else if (url.equals("scrollDown"))
-					feedView.scrollItem(false);
-				else if (url.equals("nextItem")){
-					feedView.changeItem(true);
-					if (theOwner == null) theOwner = "null";
-				}
-					
-				else if (url.equals("prevItem"))
-					feedView.changeItem(false);
-				else if (url.equals("quit"))
-					nookGoogleReader.this.stop();
-				else if (url.equals("unread") && theOwner != null && theItemId != null){
-					feedView.changeReadStatus(false);
-					reader.markAsUnread(theOwner,theItemId);
-				} else if (url.equals("readLater") && theOwner != null && theItemId != null){
-					feedView.changeReadStatus(false);
-					feedView.changeSaveStatus(true);
-					reader.removeLabel(theOwner, theItemId, "nook");
-					reader.addLabel(theOwner, theItemId, "nookRead");					
-				}
-					
-				return true;
-			} else return false;
-		}
-	}
 
 	@Override
 	public void onLoginComplete() {
@@ -168,8 +132,8 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 
 	@Override
 	public void onFeed(String feed) {
-		this.currentFeed = feed;
-		feedView.tryJavascript("readee.onEvent('feedDownloaded');");
+		this.feedView.onFeedDownloaded(feed,false);
+
 	}
 
 	@Override
@@ -190,7 +154,7 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 
 	@Override
 	public void onLabeled(String result) {
-		feedView.tryJavascript("log('" + result + "');");
+		feedView.tryJavascript("log('l:" + result + "');");
 		
 	}
 
@@ -202,7 +166,17 @@ implements AbstractReaderMethodHelper, WifiNotifier {
 		}
 		
 		reader = new ThreadedReader(this,user,pass,false);
+		managedReader = new ManagedThreadedReader(reader);
+		this.updateReaderUsers();
 		reader.login();		
+	}
+
+	/**
+	 * 
+	 */
+	private void updateReaderUsers() {
+		this.touchView.setManagedReader(this.managedReader);
+		
 	}
 	
 }
