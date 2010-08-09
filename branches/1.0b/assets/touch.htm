@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<style type="text/css">
+			body,html{
+				margin:0px;
+				padding:0px;
+				overflow:hidden;
+				background-color:#356AA0;
+			}
+			#touch a{
+				display:inline-block;
+				width:119px;
+				height:71px;
+				border:solid 1px black;
+				text-decoration:none;
+				color:white;
+				margin:0px;
+				padding:0px;
+				position:absolute;
+			}
+			#touch a p{
+				text-align:center;
+				position:relative;
+				top:6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='touch' style='width:100%; height:144px; position:relative;'>
+			<a href='reader://nextItem' style='background-color:#356AA0;left:240px'><p>Next</p></a>
+			<a href='reader://prevItem' style='background-color:#356AA0;left:120px'><p>Prev</p></a>
+			<a href='reader://scrollUp' style='background-color:#356AA0;left:360px;'><p>Scroll Up</p></a>
+			<a href='reader://scrollDown' style='background-color:#356AA0;left:360px;top:71px;'><p>Scroll Down</p></a>
+			<a href='reader://unread' style='background-color:#356AA0;left:240px;top:71px;'><p>Mark Unread</p></a>
+			<a href='reader://readLater' style='background-color:#356AA0;left:120px;top:71px;'><p>Read Later</p></a>
+			<a href='reader://quit' style='background-color:#356AA0;left:0px;'><p>Quit</p></a>
+			<a href='reader://delete' style='background-color:#356AA0;left:0;top:71px;'><p style='top:-6px;'>Delete Login Data &amp; Quit</p></a>
+		</div>
+	</body>
+</html>
