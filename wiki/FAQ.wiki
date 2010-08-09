@@ -2,7 +2,7 @@
 
 *How do I login?*
 
-There currently is no "login" box because this is a setting to be stored with a user account and user accounts are not going to be implemented until version 1.3.  The program does need to know your google username and password however.  To inform the program of your user/pass combo, place a file called 'reader.settings' in the '.settings/' directory (that you'll have to create) on the nook's sd card.  In the file, the first line should be your username, and the second line should be your password.  If you do not have this file, the program won't even start.
+There is now a login dialog in version 1.0b6.  Please download that version.
 
 *Your design sucks, can't you make it better?*
 
