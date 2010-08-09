@@ -102,7 +102,7 @@ public class ThreadedReader extends AbstractReader {
 			public void run() {
 				ThreadedReader.this.reader.login();
 				ThreadedReader.this.isLoggedIn = true;
-				ThreadedReader.this.helper.onLoginComplete();
+				ThreadedReader.this.helper.onLoginComplete(getToken().length() < 30);
 			}
 			
 		}).start();

@@ -12,10 +12,11 @@ package net.nookapps.googlereader.googleAPI;
  */
 public interface AbstractReaderMethodHelper {
 	
-	abstract void onLoginComplete();
+	abstract void onLoginComplete(boolean success);
 	abstract void onFeed(String feed);
 	abstract void onTokenError();
 	abstract void onUnreadCount(String json);
 	abstract void onSubscriptionList(String subscription);
 	abstract void onLabeled(String result);
+	;
 }

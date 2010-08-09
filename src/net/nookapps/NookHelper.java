@@ -98,11 +98,18 @@ public class NookHelper {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			ConnectivityManager cmgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo info = cmgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			boolean connection = (info == null) ? false : info.isConnected();
 			int attempts = 1;
-			while (!connection && attempts < 60) {
+			while (!connection && attempts < 45) {	//change before continuing
 				try {
 					Thread.sleep(1000);
 				} catch (Exception ex) {

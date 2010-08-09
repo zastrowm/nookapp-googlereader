@@ -14,11 +14,16 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int einkview=0x7f060000;
-        public static final int touchview=0x7f060001;
+        public static final int EditText01=0x7f060001;
+        public static final int EditText02=0x7f060002;
+        public static final int EditText03=0x7f060003;
+        public static final int TextView01=0x7f060000;
+        public static final int einkview=0x7f060004;
+        public static final int touchview=0x7f060005;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int logindata=0x7f030000;
+        public static final int main=0x7f030001;
     }
     public static final class raw {
         public static final int feed=0x7f040000;
