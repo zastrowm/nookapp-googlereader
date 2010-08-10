@@ -18,7 +18,7 @@ The middle iterations (1.X) of the the reader shall slowly add features such as:
 
 The second version (2.0) of the reader shall: include an offline mode, implement integration of [http://code.google.com/p/nookapp-users/ nookapp-users] and implement a headline-view mode.
 
-More information on various features on the [WikiFeatures Features] page.
+More information on various features on the [Features Features] page.
 
 =Disclaimer=
 This application is not in any way associated with, nor endorsed by, Google or anyone at Google.
