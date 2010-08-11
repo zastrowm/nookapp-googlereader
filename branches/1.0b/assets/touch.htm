@@ -18,6 +18,7 @@
 				margin:0px;
 				padding:0px;
 				position:absolute;
+				background-color:#356AA0;
 			}
 			#touch a p{
 				text-align:center;
@@ -28,14 +29,23 @@
 	</head>
 	<body>
 		<div id='touch' style='width:100%; height:144px; position:relative;'>
-			<a href='reader://nextItem' style='background-color:#356AA0;left:240px'><p>Next</p></a>
-			<a href='reader://prevItem' style='background-color:#356AA0;left:120px'><p>Prev</p></a>
-			<a href='reader://scrollUp' style='background-color:#356AA0;left:360px;'><p>Scroll Up</p></a>
-			<a href='reader://scrollDown' style='background-color:#356AA0;left:360px;top:71px;'><p>Scroll Down</p></a>
-			<a href='reader://unread' style='background-color:#356AA0;left:240px;top:71px;'><p>Mark Unread</p></a>
-			<a href='reader://readLater' style='background-color:#356AA0;left:120px;top:71px;'><p>Read Later</p></a>
-			<a href='reader://quit' style='background-color:#356AA0;left:0px;'><p>Quit</p></a>
-			<a href='reader://delete' style='background-color:#356AA0;left:0;top:71px;'><p style='top:-6px;'>Delete Login Data &amp; Quit</p></a>
+			<a id='next' href='reader://nextItem' style='left:240px' onclick='onClick(this.id);'><p>Next</p></a>
+			<a id='prev' href='reader://prevItem' style='left:120px' onclick='onClick(this.id);'><p>Prev</p></a>
+			<a id='scrollUp' href='reader://scrollUp' style='left:360px;' onclick='onClick(this.id);'><p>Scroll Up</p></a>
+			<a id='scrollDown' href='reader://scrollDown' style='left:360px;top:71px;' onclick='onClick(this.id);'><p>Scroll Down</p></a>
+			<a id='unread' href='reader://unread' style='left:240px;top:71px;' onclick='onClick(this.id);'><p>Mark Unread</p></a>
+			<a id='later' href='reader://readLater' style='left:120px;top:71px;' onclick='onClick(this.id);'><p>Read Later</p></a>
+			<a id='quit' href='reader://quit' style='left:0px;' onclick='onClick(this.id);'><p>Quit</p></a>
+			<a id='delete' href='reader://delete' style='left:0;top:71px;' onclick='onClick(this.id);'><p style='top:-6px;'>Delete Login Data &amp; Quit</p></a>
 		</div>
+		<script type='text/javascript'>
+			function onClick(name){
+				var element = document.getElementById(name);
+				element.style.backgroundColor = "#35A099";
+				setTimeout(function(){
+					element.style.backgroundColor = "#356AA0";
+				},300);
+			}
+		</script>
 	</body>
 </html>
