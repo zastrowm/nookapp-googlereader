@@ -1,1 +1,1 @@
-C:\SDKs\android\tools\adb.exe uninstall net.nookapps.googlereader
+C:\SDKs\android\tools\adb uninstall net.nookapps.googlereader
