@@ -109,6 +109,10 @@ public class NookHelper {
 			NetworkInfo info = cmgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			boolean connection = (info == null) ? false : info.isConnected();
 			int attempts = 1;
+			
+			if (NookHelper.isEmulator())
+				attempts = 44;
+			
 			while (!connection && attempts < 45) {	//change before continuing
 				try {
 					Thread.sleep(1000);
@@ -138,5 +142,12 @@ public class NookHelper {
 	public void unlockScreenSaver() {
 		this.wakeLock.release();
 		
+	}
+
+	/**
+	 * @return
+	 */
+	public static boolean isEmulator() {
+		return false;
 	}
 }

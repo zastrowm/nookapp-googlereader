@@ -46,6 +46,8 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 	String user, pass, label;
 	private boolean shouldLeave;
 	
+	private boolean loggedIn = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -186,6 +188,12 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 	private class TouchViewListerner extends WebViewClient{
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url){
+			
+			if (url.equals("reader://quit")){
+				nookGoogleReader.this.stop();
+			} else 	if (!loggedIn)
+				return true;
+			
 			if (url.substring(0, 9).equals("reader://")){
 				url = url.substring(9);
 				
@@ -230,6 +238,10 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 	 */
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
+		
+		if (!loggedIn)
+			return true;
+		
 		 if (event.getAction() == KeyEvent.ACTION_DOWN) {
 	            switch (keyCode) {
 	            case NookHelper.keyDownLeft:
@@ -272,9 +284,11 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 				
 				writer.close();
 			} catch (FileNotFoundException e) {
-				loadEinkText("<p>" + e + "</p>");
+				//if (!NookHelper.isEmulator())
+				//	loadEinkText("<p>" + e + "</p>");
 			}
 			
+			loggedIn = true;
 			tryJS("readee.onEvent('init');");
 		}else{
 			loadEinkText("<p>I'm sorry, login was unsuccessful</p>");
@@ -342,7 +356,16 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 			return;
 		}
 			
+		if (NookHelper.isEmulator()){
+			this.user = "greader.test@nookapps.net";
+			this.pass = "d587sa98df";
+			this.label ="nook";
+			reader = new ThreadedReader(this,user,pass,false);
+			reader.login();
 			
+			return;
+		}		
+		
 		
 		if (new File("/system/media/sdcard/.settings/reader.settings").exists() && readFile()){
 			reader = new ThreadedReader(this,user,pass,false);
