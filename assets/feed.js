@@ -229,8 +229,10 @@ var methods = {
 		
 		if (nextItem.summary)
 			document.getElementById("content" + id).innerHTML	= nextItem.summary.content // + "<pre>" + extra + "</pre>";
-		else
+		else if (nextItem.content)
 			document.getElementById("content" + id).innerHTML	= nextItem.content.content // + "<pre>" + extra + "</pre>";
+		else
+			document.getElementById("content" + id).innerHTML	= "" // + "<pre>" + extra + "</pre>";
 		
 		backPoint.item = nextItem;
 		nextItem.itemRead = false;
