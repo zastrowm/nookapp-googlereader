@@ -141,7 +141,6 @@ implements View.OnKeyListener, AbstractReaderMethodHelper, WifiNotifier, DialogI
 	private class Reader {
 		@SuppressWarnings("unused")
 		public String retrieveItems(){
-			
 			return nookGoogleReader.this.currentFeed;
 		}
 		
