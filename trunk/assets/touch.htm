@@ -25,17 +25,18 @@
 				top:6px;
 			}
 		</style>
+		<script type='text/javascript' src='touch.js'></script>
 	</head>
-	<body>
+	<body onload="onPageLoad();">
 		<div id='touch' style='width:100%; height:144px; position:relative;'>
-			<a href='reader://nextItem' style='background-color:#356AA0;left:240px'><p>Next</p></a>
-			<a href='reader://prevItem' style='background-color:#356AA0;left:120px'><p>Prev</p></a>
-			<a href='reader://scrollUp' style='background-color:#356AA0;left:360px;'><p>Scroll Up</p></a>
-			<a href='reader://scrollDown' style='background-color:#356AA0;left:360px;top:71px;'><p>Scroll Down</p></a>
-			<a href='reader://unread' style='background-color:#356AA0;left:240px;top:71px;'><p>Mark Unread</p></a>
-			<a href='reader://readLater' style='background-color:#356AA0;left:120px;top:71px;'><p>Read Later</p></a>
-			<a href='reader://quit' style='background-color:#356AA0;left:0px;'><p>Quit</p></a>
-			<a href='reader://quit' style='background-color:#356AA0;left:0;top:71px;'><p>Quit</p></a>
-		</div>
+			<a id='btnnext' onclick='onButtonPress(this.id); sendEink("itemNext");' style='background-color:#356AA0;left:240px'><p>Next</p></a>
+			<a id='btnprev' onclick='onButtonPress(this.id); sendEink("itemPrev");' style='background-color:#356AA0;left:120px'><p>Prev</p></a>
+			<a id='btnsclu' onclick='onButtonPress(this.id); sendEink("scrollUp");' style='background-color:#356AA0;left:360px;'><p>Scroll Up</p></a>
+			<a id='btnscld' onclick='onButtonPress(this.id); sendEink("scrollDown");' style='background-color:#356AA0;left:360px;top:71px;'><p>Scroll Down</p></a>
+			<a id='btnmkur' onclick='onButtonPress(this.id); markUnread()' style='background-color:#356AA0;left:240px;top:71px;'><p>Mark Unread</p></a>
+			<a id='btnmkrl' onclick='onButtonPress(this.id); markSaved()' style='background-color:#356AA0;left:120px;top:71px;'><p>Read Later</p></a>
+			<a id='btnquit' onclick='onButtonPress(this.id); quit();' style='background-color:#356AA0;left:0px;'><p>Quit</p></a>
+			<a id='btndelq' onclick='onButtonPress(this.id); quitAndDelete();' style='background-color:#356AA0;left:0;top:71px;'><p style='top:-6px;'>Quit &amp; Delete Login Data</p></a>
+		</div>		
 	</body>
 </html>
