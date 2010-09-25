@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<style type='text/css'>
+			iframe{
+				border:1px solid blue;
+			}
+		</style>
+	</head>
+	
+	
+	<body style='position:relative;'>
+		<iframe id='feed' src='feed.htm'  width=600px height=800px>	
+		
+		</iframe>
+		<iframe id='touch' src='touch.htm' width=480px height=144px style='display:block;position:absolute;left:610px;top:0px;'>
+			
+			
+		</iframe>
+		<div>
+			<a href='javascript:touch().postMessage("pinit","*")'>Init</a>
+			<a href='javascript:feed().postMessage("data","*")'>More</a>
+			
+			
+			<br />
+			<input type='text' id='message'/>
+			<a href='javascript:feed().postMessage(document.getElementById("message").value)'>Feed</a>
+			<a href='javascript:touch().postMessage(document.getElementById("message").value)'>Touch</a>
+		</div>
+		
+		<pre id='log'  style='display:block;position:absolute;left:610px;top:150px;height:650px;overflow:scroll;width:800px;'></pre>
+		
+		<script type='text/javascript'>
+			
+
+window.addEventListener("message", function(event){
+	
+	if (event.data.substr(0,1) == 'l')
+		log('l: ' + event.data.substr(2))
+	else if (event.data.substr(0,1) == 'f'){
+		
+		if (event.data.substr(0,1) == 'f'){
+			touch().postMessage(event.data.substr(2),'*')
+		}
+		
+		log('f: ' + event.data);
+	}else{
+		
+		if (event.data.substr(0,1) == 'e'){
+			feed().postMessage(event.data.substr(2),'*')
+		}
+			
+		log('t: ' + event.data);
+	}
+		
+}, false);
+
+function feed(){
+	return document.getElementById("feed").contentWindow;
+}
+
+function touch(){
+	return document.getElementById("touch").contentWindow;
+}
+
+function log(what){
+	document.getElementById('log').innerHTML += what + '\n';
+}
+
+
+		</script>
+	</body>
+	
+	
+	
+	
+</html>
