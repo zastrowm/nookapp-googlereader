@@ -5,6 +5,7 @@
    android:layout_height="fill_parent"
    android:orientation="vertical"
    >
+  
   <!-- this Frame is used merely to block out the eink-display -->
   <WebView
       xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,6 +13,7 @@
       android:layout_height="760px"
       android:background="#ffffff"
       android:id="@+id/einkview"/>
+
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="490px"
