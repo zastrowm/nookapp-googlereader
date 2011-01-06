@@ -1,7 +1,7 @@
 /**
  * @author zastrowm
  */
-var currentFeed,currentItem;
+var currentFeed,currentItem,continueString = "";
 
 /**
  * Runs when the page is done loading
@@ -16,23 +16,27 @@ function onPageLoad(){
  * @param {String} message
  */
 function onJavaToMe(message){
+	
 	switch(message){
 		case "keyLeftBottom":
 			sendEink("itemNext");
-			break;
+			return;
 		case "keyLeftTop":
 			sendEink("itemPrev");
-			break;
+			return;
 		case "keyRightTop":
 			sendEink("scrollUp");
-			break;
+			return;
 		case "keyRightBottom":
 			sendEink("scrollDown");
-			break;
+			return;
 		case "init":
 			sendEink("init");
-			break;	
+			return;
 	}
+	
+	if (message.substr(0,12) == "continuation")
+		continueString = message.split(":")[1];
 }
 
 /**
@@ -43,7 +47,7 @@ function onData(data){
 	
 	if (data.type == "more") {
 		log('more ' + data.continuationString);
-		window.reader.getFeedBasedOnLabel("nook", data.continuationString);
+		window.reader.getFeedBasedOnLabel("nook", continueString);
 	}else if (data.type == "info") {
 		
 		
@@ -59,6 +63,8 @@ function onData(data){
 		
 		
 		markRead();
+	} else if (data.type == "log"){
+		log("feed:" + data.data );
 	}	
 }
 

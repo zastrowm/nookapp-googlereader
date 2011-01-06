@@ -5,7 +5,8 @@ var global = {
     isScriptWaiting: true,
     continuation: "",
 	isFirstData : true,
-	isRequestPending : false
+	isRequestPending : false,
+	itemCountFromLastRequest : 0
 }
 
 var options = {	itemsPerDownload : 15,	numberOfDivs : 16,	maxFrontDistance : 5,	requestBuffer : 3, scrollBy : 680}
@@ -50,7 +51,10 @@ function onData(theData){
 	}	
 }
 //object for java item send
-var readee = {onDownloaded : function(data){helper.nextFeedDownloaded(data);}}
+var readee = {
+	onDownloaded : function(data){helper.nextFeedDownloaded(data);},
+	onItemDownloaded : function(item){helper.nextFeedItemDownload(item);}
+}
 
 var helper = {
 	
@@ -92,12 +96,13 @@ var helper = {
 	}, 
 	
 	nextFeedDownloaded : function(newData){
+		log('item downloaded');
 		global.isRequestPending = false;
 		//put new data into the data array
 		
 		for (var i in newData.items)
 			itemsDownloaded.push(newData.items[i]);
-		log("dl");
+		
 		
 		
 		if (newData.items.length === 0){
@@ -117,6 +122,27 @@ var helper = {
 		global.requestPending = false;
 		global.continuation = newData.continuation ? newData.continuation : "";
 	},
+	
+	nextFeedItemDownload : function (newItem){
+		
+		
+		
+		global.itemCountFromLastRequest++;
+		
+		if (global.itemCountFromLastRequest >= options.itemsPerDownload){
+			global.itemCountFromLastRequest = 0;			
+			global.isRequestPending = false;
+		}
+		
+		itemsDownloaded.push(newItem);
+		
+		//if the user is waiting, load up the next one and then show it
+		if (position.isInSpecialNode){
+			position.loadNext();
+			position.advance();
+		}
+	},
+	
 	
 	
 	startTimer : function(){
@@ -148,7 +174,9 @@ var helper = {
 	
 }
 
-function log(){};
+function log(what){
+	
+};
 
 
 /*//DEBUG!

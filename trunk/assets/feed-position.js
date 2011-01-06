@@ -60,15 +60,19 @@ var position = {
 			} else {	
 				this._advanceRaw();		//push current back and display it				
 			}
+			
+			this._updateStats();	
 		} else if (position.current != position.back){	//if this is a special node and we're not at the end
 			this._moveFromSpecial();
 			if (position.specialNode != "special-start")
 				this._advanceRaw(true);			//push current back and display it
 			else
 				divs.show('item-'+position.current.divId);		
+				
+			this._updateStats();	
 		}
 		
-		this._updateStats();	
+		
 	},
 	
 	
@@ -77,16 +81,17 @@ var position = {
 		if (this.isInSpecialNode && position.front != position.current){
 			this._moveFromSpecial();
 			divs.show('item-'+position.current.divId);
-			
+			this._updateStats();	
 		} else if  (position.front != position.current){	//If we're not special and have room
 			
 			divs.hide('item-'+position.current.divId);
 			this.distanceBetweenFrontAndCurrent--;
 			position.current = position.current.prev;
 			divs.show('item-'+position.current.divId);
+			this._updateStats();	
 		}
 		
-		this._updateStats();		
+			
 	},
 	
 	loadNext : function(){
@@ -114,7 +119,9 @@ var position = {
 		
 		//TODO: add states
 		
-		this._saveDataToElement(document.getElementById('item-'+where.divId),item);		
+		var divItem = document.getElementById('item-'+where.divId);
+		this._saveDataToElement(divItem,item);
+		divItem.style.top = "0px";	//reset the scroll		
 	
 		position.back = position.back.next;
 		
