@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class Settings {
 	
-	static final String DIRECTORY = "/system/media/sdcard/.settings/default/";
+	static final String DIRECTORY = "/system/media/sdcard/.settings/";
 	private String directory;
 	
 	public Settings(String thePackage){
